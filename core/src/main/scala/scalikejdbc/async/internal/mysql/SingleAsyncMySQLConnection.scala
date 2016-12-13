@@ -22,7 +22,6 @@ import scalikejdbc.async._, internal._
  */
 private[scalikejdbc] case class SingleAsyncMySQLConnection(url: String, user: String, password: String)
     extends AsyncConnectionCommonImpl
-    with AsyncConnection
     with MySQLConnectionImpl
     with MauricioConfiguration {
 
