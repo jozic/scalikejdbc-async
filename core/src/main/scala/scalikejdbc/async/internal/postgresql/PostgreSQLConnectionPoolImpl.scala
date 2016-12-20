@@ -29,9 +29,9 @@ import com.github.mauricio.async.db.postgresql.pool.PostgreSQLConnectionFactory
  * @param settings extra settings
  */
 private[scalikejdbc] class PostgreSQLConnectionPoolImpl(
-  override val url: String,
-  override val user: String,
-  override val password: String,
+  url: String,
+  user: String,
+  password: String,
   override val settings: AsyncConnectionPoolSettings = AsyncConnectionPoolSettings())
     extends AsyncConnectionPoolCommonImpl[PostgreSQLConnection](url, user, password,
       (c: Configuration) => new PostgreSQLConnectionFactory(c), settings) {

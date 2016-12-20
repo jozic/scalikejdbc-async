@@ -16,16 +16,12 @@
 package scalikejdbc.async
 
 import scalikejdbc._
-import scalikejdbc.async.internal.MauricioConfiguration
 
 /**
  * Asynchronous Connection Pool
  */
 abstract class AsyncConnectionPool(
-    val url: String,
-    val user: String,
-    password: String,
-    val settings: AsyncConnectionPoolSettings = AsyncConnectionPoolSettings()) extends MauricioConfiguration {
+    val settings: AsyncConnectionPoolSettings = AsyncConnectionPoolSettings()) {
 
   /**
    * Borrows a connection from pool.
@@ -59,13 +55,13 @@ object AsyncConnectionPool extends LogSupport {
 
   private[this] val pools = new ConcurrentMap[Any, AsyncConnectionPool]()
 
-  def isInitialized(name: Any = DEFAULT_NAME) = pools.contains(name)
+  def isInitialized(name: Any = DEFAULT_NAME): Boolean = pools.contains(name)
 
   def get(name: Any = DEFAULT_NAME): AsyncConnectionPool = {
-    pools.get(name).getOrElse {
+    pools.getOrElse(name, {
       val message = ErrorMessage.CONNECTION_POOL_IS_NOT_YET_INITIALIZED + "(name:" + name + ")"
       throw new IllegalStateException(message)
-    }
+    })
   }
 
   def apply(name: Any = DEFAULT_NAME): AsyncConnectionPool = get(name)

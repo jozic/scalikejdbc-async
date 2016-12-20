@@ -15,6 +15,7 @@
  */
 package scalikejdbc.async.internal
 
+import com.github.mauricio.async.db.Configuration
 import scalikejdbc.JDBCUrl
 
 /**
@@ -22,13 +23,9 @@ import scalikejdbc.JDBCUrl
  */
 private[scalikejdbc] trait MauricioConfiguration {
 
-  val url: String
-  val user: String
-  val password: String
-
-  private[scalikejdbc] val configuration = {
+  private[scalikejdbc] def configuration(url: String, user: String, password: String) = {
     val jdbcUrl = JDBCUrl(url)
-    com.github.mauricio.async.db.Configuration(
+    Configuration(
       username = user,
       host = jdbcUrl.host,
       port = jdbcUrl.port,

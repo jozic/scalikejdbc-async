@@ -29,9 +29,9 @@ import com.github.mauricio.async.db.mysql.pool.MySQLConnectionFactory
  * @param settings extra settings
  */
 private[scalikejdbc] class MySQLConnectionPoolImpl(
-  override val url: String,
-  override val user: String,
-  override val password: String,
+  url: String,
+  user: String,
+  password: String,
   override val settings: AsyncConnectionPoolSettings = AsyncConnectionPoolSettings())
     extends AsyncConnectionPoolCommonImpl[MySQLConnection](url, user, password,
       (c: Configuration) => new MySQLConnectionFactory(c), settings) {
